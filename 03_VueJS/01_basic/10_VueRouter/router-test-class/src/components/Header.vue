@@ -10,6 +10,9 @@
     <div :class="navClass">
       <ul class="navbar-nav">
         <li class="nav-item">
+          <router-link class="nav-link" :to="{ name: 'home' }">홈</router-link>
+        </li>
+        <li class="nav-item">
           <!-- router-link : 라우터 링크 태그 (a 태그 역할) -->
           <!-- to 속성에 이동할 경로 지정 -->
           <!-- <router-link class="nav-link" to="/members">멤버</router-link> -->

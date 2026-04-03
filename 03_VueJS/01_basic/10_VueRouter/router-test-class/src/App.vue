@@ -3,7 +3,26 @@
     <Header />
 
     <!-- RouterView 태그 : 라우터 화면 컴포넌트가 들어갈 자리 -->
-    <RouterView />
+    <div class="card card-body border-0 pl-3 pr-3 pt-0">
+      <div class="row">
+        <div class="col-md-3 border">
+          <!-- 사이드 메뉴 영역 -->
+          <!-- named view : 이름이 맞는 RouterView 위치에 컴포넌트 넣기 -->
+          <RouterView name="left"></RouterView>
+        </div>
+        <div class="col-md-9 border">
+          <!-- 메인 화면 -->
+          <!-- name이 없는 경우 default -->
+          <RouterView></RouterView>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 border">
+          <!-- footer 영역 -->
+          <RouterView name="footer"></RouterView>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <!-- <script setup>
