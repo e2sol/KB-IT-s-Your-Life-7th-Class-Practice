@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function callBackFun(rep, callback) {
+        for (let i = 0; i < rep; i++) {
+          callback();
+          //   console.log('callback ' + i + '번째');
+        }
+      }
+      function fun() {
+        alert('함수 호출');
+      }
+      // 순서대로 rep(반복횟수), 함수 입력
+      callBackFun(3, fun);
+    </script>
+  </head>
+  <body></body>
+</html>

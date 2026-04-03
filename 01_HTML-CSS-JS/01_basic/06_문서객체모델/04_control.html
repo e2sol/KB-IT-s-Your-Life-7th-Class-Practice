@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      window.onload = function () {
+        let output = '';
+
+        for (let i = 0; i < 10; i++) {
+          output += '<h1>Header - ' + i + '</h1>';
+        }
+        // console.log(output);
+
+        //동시에 두 코드를 실행 시 가장 아래 부분만 출력됨
+        // 단순 텍스트로 출력
+        document.body.textContent = output;
+        // HTML 태그 해석 후 출력
+        document.body.innerHTML = output;
+      };
+    </script>
+  </head>
+  <body></body>
+</html>

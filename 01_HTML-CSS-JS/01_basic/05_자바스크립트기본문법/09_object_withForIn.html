@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      let product = {
+        제품명: '7D 건조 망고',
+        유형: '당절임',
+        성분: '망고, 설탕, 메타중아황산나트륨, 치자황색소',
+        원산지: '필리핀',
+      };
+
+      // Object.keys(product) : product 객체 내 아이템(key)을 배열로 반환하는 메서드
+      for (let i in product) {
+        console.log(i + ': ' + product[i]);
+      }
+    </script>
+  </head>
+  <body>
+    <h3>자바스크립트 객체</h3>
+    <pre>
+      자바스크립트의 객체는 {}중괄호 내부에
+      Key:Value가 모여있는 형태로 작성된다.
+
+      {k:v, k:v, k:v}
+    </pre>
+    <script>
+      //객체 선언
+      // 자바스크립트 객체의 key 값은 "", ''를 생략하여도 문자열로 인식
+      // 단, value 값은 문자열인 경우 "", '' 필수 작성
+      let product2 = {
+        제품명: '7D 건조 망고',
+        유형: '당절임',
+        성분: '망고, 설탕, 메타중아황산나트륨, 치자황색소',
+        원산지: '필리핀',
+      };
+
+      // 변수명.key : value 출력
+      console.log(product2.제품명); //7D 건조 망고
+
+      // 반복문을 이용하여 value 출력
+      // for (변수 in 객체명) {}
+      for (let i in product2) {
+        console.log(i);
+        console.log(product2[i]);
+
+        // alert(i + ' : ' + product2[i]);
+
+        // Template literals(템플릿 리터럴)
+        // ``(백틱)을 사용하여 문자열을 표현하는 방식
+        alert(`${i} : ${product2[i]}`);
+      }
+    </script>
+  </body>
+</html>

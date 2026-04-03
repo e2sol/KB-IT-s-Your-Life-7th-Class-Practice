@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      window.onload = function () {
+        let name = document.getElementById('name');
+        let button = document.getElementById('btn');
+
+        console.log(name); // 내부 값이 없으므로 빈칸으로 출력
+
+        // 버튼이 클릭될 때 이벤트 설정
+        button.onclick = function () {
+          // 변수에 입력받은 값을 저장.
+          // 이때 value는 버튼이 클릭되었을 때 input 박스에 작성된 값
+          name = name.value;
+          console.log('사용자 이름: ' + name);
+        };
+      };
+    </script>
+  </head>
+  <body>
+    <form>
+      <label for="name">이름:</label>
+      <input type="text" id="name" name="name" size="30" />
+      <input type="button" id="btn" value="전송" />
+    </form>
+  </body>
+</html>
