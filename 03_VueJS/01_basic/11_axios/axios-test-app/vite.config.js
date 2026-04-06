@@ -19,7 +19,7 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:3000', // 실제 API 서버 주소
         changeOrigin: true, // 원본 서버 주소를 변경하지 않고 프록시 서버 주소로 변경
-        rewrite: (path) => path.replace(/^\/api/, ''), // 프록시 서버 주소 변경
+        rewrite: (path) => path.replace(/^\/api/, ''), // 프록시 서버 주소 변경 // 백엔드에서 확인 가능
         // -> /api를 ""(빈 문자열)로 대체
       },
     },
