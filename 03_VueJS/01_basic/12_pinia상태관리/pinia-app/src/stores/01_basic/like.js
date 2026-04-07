@@ -8,7 +8,7 @@ export const useLikeStore = defineStore('like', () => {
   // state
   const like = ref(0); // 좋아요 수를 저장하는 상태 변수
 
-  // action : 값 변경
+  // action : 값 변경 (보통 state에 선언한 값을 변경하기 위해 사용)
   // like의 값을 1씩 증가시키는 메소드
   const increase = () => {
     like.value++;
@@ -20,6 +20,6 @@ export const useLikeStore = defineStore('like', () => {
     return like.value * 5;
   });
 
-  // 사용할 상태 반환
+  // 사용할 상태, 메소드 반환
   return { like, increase, fivetimes };
 });

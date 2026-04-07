@@ -34,6 +34,10 @@ export const useCounterStore = defineStore('counter', () => {
     count.value++;
   }
 
+  const reset = () => {
+    count.value = 0;
+  };
+
   // 사용할 상태와 메소드 반환
-  return { count, doubleCount, increment };
+  return { count, doubleCount, increment, reset };
 });
