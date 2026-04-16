@@ -1,4 +1,4 @@
-package main.java.ch02_if_else_for_while.basic.ch04.sec04;
+package main.java.ch02_conditional_loop_reference.basic.ch04.sec04;
 
 public class SumFrom1To100Example2 {
     public static void main(String[] args) {// while문을 이용한 1-100 총 합 구하기
