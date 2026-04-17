@@ -18,18 +18,22 @@ public class ArrayExample2 { // 예제 작성용 클래스
         // 배열에 값 대입하기
         // 1. 일반 for문
         for (int i = 0; i < arr.length; i++) {
-            arr[i] = 100*(i+1);
+            arr[i] = 100 * (i + 1);
             System.out.printf("arr[%d] : %d\n", i, arr[i]);
         }
 
         // 2. 향상된 for문으로 값 출력하기
+        // 작성법 : for(자료형 변수명 : 배열 또는 컬렉션명) { }
+        // index가 필요한 경우에는 일반 for문 사용
         System.out.println("\n향상된 for문으로 값 출력하기");
-        for (int x : arr){
-            System.out.println(x);
-
+        int i = 0;
+        for (int num : arr) {
+            System.out.printf("arr[%d] : %d\n", i, num);
+            i++;
         }
     }
-    public void ex2(){
+
+    public void ex2() {
         // [숙제] ----------------------------------------
         // 입력 받은 양의 정수 만큼의
         // 크기를 가지는 배열 만들기
@@ -47,7 +51,7 @@ public class ArrayExample2 { // 예제 작성용 클래스
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("[평균 점수 구하기]");
+        System.out.println("\n\n[평균 점수 구하기]");
 
         // 입력받을 인원 수 구하기
         System.out.print("입력 받을 인원 수 : ");
@@ -59,15 +63,33 @@ public class ArrayExample2 { // 예제 작성용 클래스
 
         // 반복문을 통해 각 배열의 요소 값을 입력받기
         for (int i = 0; i < length; i++) {
-            System.out.printf("%d번 점수 입력 : ", i+1);
+            System.out.printf("%d번 점수 입력 : ", i + 1);
             scores[i] = scanner.nextInt();
+            // -> 입력 받은 정수를 배열 요소에 저장
             sum += scores[i];
         }
 
         // 합계와 평균 점수 출력
         System.out.printf("\n합계 : %d점\n", sum);
-        System.out.printf("평균 : %d점\n", sum/length);
-        System.out.println(Arrays.toString(scores));
+        System.out.printf("평균 : %.2f점\n", (double) sum / length);
+        // System.out.println(Arrays.toString(scores));
+
+    }
+
+    public void ex3() {
+        // 저녁 메뉴 뽑기
+
+        // 배열 선언과 동시에 초기화
+        String[] menu = {"설렁탕", "삼겹살", "카레", "리조또", "피자", "소고기"};
+
+        // 난수를 발생시켜서 메뉴 출력하기
+        int random = (int) (Math.random() * 6);
+        // Math.random()의 범위 : 0.0 <= x < 1.0
+        // Math.random()*6의 범위 : 0.0 <= x*6 < 6.0
+        // Math.random()*6의 범위 : 0 <= (int)(x*6) < 6
+
+        System.out.println(random);
+        System.out.println("저녁 메뉴 추천 : " + menu[random]);
 
     }
 }
