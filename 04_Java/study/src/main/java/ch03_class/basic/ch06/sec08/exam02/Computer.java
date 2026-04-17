@@ -7,7 +7,7 @@ public class Computer {
     // 기본 생성자 활용시 굳이 설정 필요 없음
 
     // 메서드
-    public int sum(){
+    public int sum(int... numbers){
         return 0;
     }
 }
