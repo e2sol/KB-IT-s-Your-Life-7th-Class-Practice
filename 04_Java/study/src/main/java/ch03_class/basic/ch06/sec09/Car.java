@@ -11,11 +11,19 @@ public class Car {
     }
 
     // speed 필드의 getter / setter 메서드 정의
-    public int getter() {
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public int getSpeed() {
         return speed;
     }
 
-    public void setter(int speed) {
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
 
