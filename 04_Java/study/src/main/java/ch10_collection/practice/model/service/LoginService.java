@@ -20,7 +20,7 @@ public class LoginService {
 		// 타겟 넘버 지정
 		Random random = new Random();
 		int targetNum = random.nextInt(100) + 1;
-
+		System.out.println(targetNum);
 		int inputNum = 0; // 사용자 입력 숫자
 		int phase = 1; // 사용자 도전 횟수
 
@@ -41,6 +41,7 @@ public class LoginService {
 				if (phase < loginMember.getHighScore()){
 					System.out.println("*** 최고 기록 달성 ***");
 				}
+				loginMember.setHighScore(phase);
 				break;
 			}
 		}
