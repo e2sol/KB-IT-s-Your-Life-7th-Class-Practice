@@ -20,7 +20,7 @@ public class LoginService {
 		// 타겟 넘버 지정
 		Random random = new Random();
 		int targetNum = random.nextInt(100) + 1;
-		System.out.println(targetNum);
+		// System.out.println(targetNum); // 테스트 코드
 		int inputNum = 0; // 사용자 입력 숫자
 		int phase = 1; // 사용자 도전 횟수
 
