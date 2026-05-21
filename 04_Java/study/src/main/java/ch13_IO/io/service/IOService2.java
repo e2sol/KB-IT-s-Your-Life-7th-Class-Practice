@@ -12,7 +12,7 @@ public class IOService2 {
     // 바이트 기반 파일 출력
     public void byteOutput() {
 
-        try (FileOutputStream fos = new FileOutputStream("src/main/java/ch13_IO/io/byte/byteTest.txt")){
+        try (FileOutputStream fos = new FileOutputStream("src/main/java/ch13_IO/io/byte/byteTest.txt")) {
 
             String content = "Hello 1234 ~!@#$ ";
 
@@ -32,7 +32,7 @@ public class IOService2 {
     // 문자 기반 파일 출력
     public void charOutput() {
 
-        try (FileWriter fw = new FileWriter("src/main/java/ch13_IO/io/char/charTest.txt")){
+        try (FileWriter fw = new FileWriter("src/main/java/ch13_IO/io/char/charTest.txt")) {
 
             String content = "곧 조발표 합니다 ^-^ >_< ";
 
@@ -56,7 +56,7 @@ public class IOService2 {
     // 바이트 기반 파일 입력
     public void byteInput() {
 
-        try (FileInputStream fis = new FileInputStream("src/main/java/ch13_IO/io/byte/byteTest.txt")){
+        try (FileInputStream fis = new FileInputStream("src/main/java/ch13_IO/io/byte/byteTest.txt")) {
 
             while (true) {
                 int data = fis.read();
@@ -74,7 +74,7 @@ public class IOService2 {
     // 문자 기반 파일 입력
     public void charInput() {
 
-        try (FileReader fr = new FileReader("src/main/java/ch13_IO/io/char/charTest.txt")){
+        try (FileReader fr = new FileReader("src/main/java/ch13_IO/io/char/charTest.txt")) {
 
             while (true) {
                 int data = fr.read();
