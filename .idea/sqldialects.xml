@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/00_MySQL_inteliJ_setting.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/basic_03_01.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/basic_03_02.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/basic_03_03.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/basic_03_04.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/basic_03_05.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/00_db_settings/00_MySQL_inteliJ_setting.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/03_SQL_BASIC/advanced/advanced_03_01.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/03_SQL_BASIC/advanced/advanced_03_02.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/03_SQL_BASIC/advanced/advanced_03_03.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/03_SQL_BASIC/basic/basic_03_01.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/03_SQL_BASIC/basic/basic_03_02.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/03_SQL_BASIC/basic/basic_03_03.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/03_SQL_BASIC/basic/basic_03_04.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/03_SQL_BASIC/basic/basic_03_05.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/03_SQL_BASIC/basic/class_기본.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/member.sql" dialect="MySQL" />
   </component>
 </project>
