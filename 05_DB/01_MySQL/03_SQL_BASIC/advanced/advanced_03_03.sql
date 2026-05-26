@@ -46,7 +46,7 @@ where dept_emp.to_date = '9999-01-01' and
       salary > (select avg(salary)
                 from salaries
                 where to_date = '9999-01-01' and
-                    emp_no in (select emp_no from dept_emp where to_date = '9999-01-01'))
+                    emp_no in (select emp_no from dept_emp where to_date = '9999-01-01'));
 
 -- employees db에서 각 부서별 재직자의 수를 구하시오
 -- - 부서 번호로 구분하고, 부서 번호 오름차순 정렬하여 출력한다
