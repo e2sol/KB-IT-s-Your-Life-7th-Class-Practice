@@ -117,3 +117,14 @@ INSERT INTO tbl_menu VALUES (null, '마라깐쇼한라봉', 22000, 5, 'N');
 INSERT INTO tbl_menu VALUES (null, '돌미나리백설기', 5000, 11, 'Y');
 
 COMMIT;
+
+# null 관련 데이터 추가
+
+-- menu_price, category_code 제약조건 변경
+ALTER TABLE tbl_menu MODIFY menu_price INT NULL;
+ALTER TABLE tbl_menu MODIFY category_code INT NULL;
+
+-- null 데이터값을 가진 행 추가
+INSERT INTO tbl_menu VALUES (22, '순대쉐이크', null, null, 'Y');
+
+COMMIT;
