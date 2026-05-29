@@ -49,16 +49,31 @@ public class MovieAnalysis {
         // 4. 각 장르별로 영화를 그룹화하고, 장르별 영화 수를 맵으로 반환하기
         // 결과 : {SF=3, 액션=2, 드라마=1, 로맨스=1, 뮤지컬=1}
 
+        Map<String, Integer> map = new HashMap<>();
+        List<String> list3 = movies.stream()
+                .map(Movie::getGenre)
+                .toList();
 
+        for (String genre : list3) {
+            int count = (int) movies.stream()
+                    .filter(movie -> movie.getGenre().equals(genre))
+                    .count();
+
+            map.put(genre, count);
+        }
+
+        System.out.println(map);
 
         // 5. 평점이 8.5 이상인 영화들의 장르를 중복 없이 알파벳 순으로 정렬하여 반환하기
         // 결과 : [SF, 드라마, 액션]
 
-        List<String> list3 = movies.stream()
+        List<String> list4 = movies.stream()
                 .filter(movie -> movie.getRating() >= 8.5)
                 .map(Movie::getGenre)
                 .sorted()
                 .distinct()
                 .toList();
+
+        System.out.println(list4);
     }
 }
