@@ -10,11 +10,16 @@ select user, host from user;
 SELECT USER, HOST FROM USER;
 
 # (root 관리자계정) 새로운 계정 user 생성
-
+-- user
+-- host : %는 모든 ip를 의미
+-- identified by 비밀번호 (대소문자 구분)
+create user 'hhj'@'%' identified by 'hhj';
 
 # (root 관리자계정) 새로운 database(schema) 생성
-
+create database hhjdb;
 
 # 새로 생성한 계정에게 db 사용권한을 부여
+grant all privileges on hhjdb.* to 'hhj'@'%';
 
-
+# 권한 적용
+flush privileges;

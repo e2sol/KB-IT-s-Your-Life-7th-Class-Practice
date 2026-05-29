@@ -28,43 +28,82 @@
 desc tbl_menu;
 
 # 문법1. 테이블 구조대로 작성해야 한다. (컬럼순서,개수)
+INSERT INTO tbl_menu
+VALUES (null, '딸기초코바나나우유', 2500, 9, 'Y');
 
+select * from tbl_menu;
 
+# INSERT INTO tbl_menu
+# VALUES (null, null, 9500, 9, 'Y');
+-- [23000][1048] Column 'menu_name' cannot be null
 
 # 문법2: 작성한 컬럼값만 제공
+-- 2. INSERT INTO <테이블명>(컬럼명1,컬럼명2,...) VALUES (입력데이터1, 입력데이터2, ... );
+-- 메뉴명, 가격, 카테고리 코드, 주문가능여부 만 추가
+INSERT INTO tbl_menu (menu_name, menu_price, category_code, orderable_status)
+VALUES ('딸기김치찌개', 9500, 4, 'Y');
+
+select * from tbl_menu;
+
+# INSERT INTO tbl_menu (menu_name, menu_price, category_code, orderable_status)
+# VALUES ('초콜릿죽', 9500, 'N');
+-- [21S01][1136] Column count doesn't match value count at row 1
 
 
 # 문법3: 대량 데이터 추가
+-- 3. INSERT INTO <테이블명>(컬럼명1,컬럼명2,...) VALUES
+--      (입력데이터1, 입력데이터2, ... ), (입력데이터1, 입력데이터2, ... ), ... ;
+INSERT INTO tbl_menu VALUES
+    (null, '바닐라쉐이크', 1500, 9, 'Y'),
+    (null, '소금빵쉐이크', 1800, 9, 'N'),
+    (null, '소금빵국밥', 2800, 4, 'Y');
 
+select * from tbl_menu;
+
+SET autocommit = 0; -- 오토 커밋 끄기
 
 # update
 # - 테이블 기존행의 컬럼값을 수정
 # - 일반적으로 pk컬럼값을 이용해 행을 찾고, 수정
+-- UPDATE 테이블명 SET 컬럼명 = 컬럼값 WHERE 조건식
 
 # 19번 메뉴의 가격을 천원 인상
+UPDATE tbl_menu SET menu_price = menu_price + 1000
+WHERE menu_code = 19; -- 9000원에서 10000원으로 변경
 
 # 한식류(4번) 가격 인상
+UPDATE tbl_menu SET menu_price = menu_price + 500
+WHERE category_code = 4;
 
+select * from tbl_menu where category_code = 4;
 
 # delete
 # - 지정한 행을 삭제
 # - 일반적으로 pk컬럼을 통해 행을 찾고, 삭제
+-- delete from 테이블명 [where 조건식];
+
+-- 메뉴 코드가 24번인 행 삭제
+DELETE FROM tbl_menu WHERE menu_code = 24;
+
+select * from tbl_menu;
 
 # replace
 # - upsert기능 수행 (insert + update)
 # - pk컬럼 기준으로 행이 존재하지 않으면 insert 처리
 # - 존재하면, update 처리
+REPLACE INTO tbl_menu VALUES (100, '참기름막걸리', 5000, 10, 'Y');
 
-
+REPLACE INTO tbl_menu VALUES (100, '들기름막걸리', 5000, 10, 'Y');
 
 # 트랜잭션 처리
 # - dml수행 - commit : 변경사항 적용
 # - dml수행 - rollback : 변경사항 폐기
+COMMIT;
+ROLLBACK;
 
+-- Auto Commit 상태 확인
+-- 0 : 꺼짐, 1 : 켜짐
+SELECT @@autocommit;
 
-# TCL Transaction Control Language
-
-
-
-
-
+-- Auto Commit 상태 변경
+SET autocommit = 0;
