@@ -18,6 +18,10 @@
     <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/05_SQL_Table_View/advanced/advanced_05_employees.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/05_SQL_Table_View/advanced/advanced_05_tabledb.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/05_SQL_Table_View/basic/basic_05_tabledb.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/06_INDEX/advanced/advanced_06_scoula_db.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/06_INDEX/advanced/advanced_06_sqldb.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/06_INDEX/basic/basic_06_sqldb.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/06_INDEX/basic/basic_06_testdb.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/Class_Explan/01_dql_select1.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/Class_Explan/02_dql_select2.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/Class_Explan/03_dql_subquery.sql" dialect="MySQL" />
