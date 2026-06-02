@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      // 문서가 모두 load(해석)되고 나면 해당 function을 실행해라
+      window.onload = function () {
+        let header = document.querySelectorAll('h1');
+        // 요소를 여러개 접근하는 경우 NodeList 형태로 반환
+        // 배열 내 요소에 css, 이벤트 등을 적용하고 싶으면,
+        // 인덱스 번호를 이용하여 요소 하나하나에 직접 적용시켜야 함
+
+        // 각각의 NodeList 요소를 반복문을 통해 설정
+        // live-collection인 경우 원하는 대로 동작하지 않을 수 있으므로
+        // 배열 변환 후 사용 권장
+
+        // for (let i = 0; i < header.length; i++) {
+        //   header[i].style.color = 'orange';
+        //   header[i].style.background = 'red';
+        //   header[i].innerHTML = 'From JavaScript';
+        // }
+
+        // NodeList의 각 요소를 headers에 대입, headers를 통해 각 요소에 적용
+        for (let i = 0; i < header.length; i++) {
+          let headers = header[i];
+          headers.style.color = 'orange';
+          headers.style.background = 'red';
+          headers.innerHTML = 'From JavaScript';
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <h1>Header</h1>
+    <h1>Header</h1>
+    <h1>Header</h1>
+  </body>
+</html>

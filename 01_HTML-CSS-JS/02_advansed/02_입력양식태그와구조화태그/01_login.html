@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form>
+      <fieldset>
+        <legend>로그인</legend>
+        <table>
+          <tr>
+            <th><label for="UserID">사용자 ID</label></th>
+            <td><input type="text" id="UserID" /></td>
+          </tr>
+          <tr>
+            <th><label for="Password">비밀번호</label></th>
+            <td><input type="password" id="Password" /></td>
+          </tr>
+          <!-- table 안에 button 생성 시 두번째 버튼이 열맞춰 생성됨 -->
+          <!-- <tr>
+            <td><input type="submit" value="확인" /></td>
+            <td><input type="reset" value="다시쓰기" /></td>
+          </tr> -->
+        </table>
+        <input type="submit" value="확인" />
+        <input type="reset" value="다시쓰기" />
+      </fieldset>
+      <!-- fieldset 외부에 button 생성 시 박스 밖에 버튼이 생성됨 -->
+    </form>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form>
+      <table>
+        <tr>
+          <!-- label의 for 항목과 input의 id 내용 동일하게 설정 -->
+          <td><label for="Username">이름</label></td>
+          <td>
+            <input
+              type="text"
+              id="Username"
+              name="Username"
+              placeholder="이름을 입력하세요."
+              value="이름"
+            />
+            <!-- placeholder는 입력상자가 비어있는 경우 보여짐 -->
+            <!-- value는 입력상자에 이미 작성되는 기본 값을 의미 -->
+            <!-- disabled는 사용자가 내용 수정 할 수 없음 -->
+          </td>
+        </tr>
+        <tr>
+          <td><label for="Gender">성별</label></td>
+          <td>
+            <input type="radio" id="man" name="Gender" value="m" />
+            <label for="man">남자</label>
+            <input type="radio" id="woman" name="Gender" value="w" />
+            <label for="woman">여자</label>
+          </td>
+        </tr>
+      </table>
+      <input type="submit" value="가입" />
+    </form>
+  </body>
+</html>

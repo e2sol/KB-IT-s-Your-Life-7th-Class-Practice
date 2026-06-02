@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .errStyle {
+        background-color: skyblue;
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      1부터 100까지만 입력 가능합니다. <br />
+      점수 :
+      <input
+        type="text"
+        v-model.number="num"
+        :class="(1 > num || num > 100)? errStyle:''"
+      />
+      <img
+        v-if="1 > num || num > 100"
+        src="https://contactsvc.bmaster.kro.kr/img/error.png"
+        title="입력 범위를 준수하세요"
+        style="width: 15px; height: 15px; vertical-align: middle"
+      />
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+      let vm = Vue.createApp({
+        name: 'App',
+        data() {
+          return {
+            num: 50,
+            errStyle: 'errStyle',
+          };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

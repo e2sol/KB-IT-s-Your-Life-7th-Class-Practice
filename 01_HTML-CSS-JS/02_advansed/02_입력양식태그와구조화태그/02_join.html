@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form>
+      <!-- 테두리 -->
+      <fieldset>
+        <!-- 테두리의 제목작성 -->
+        <legend>회원가입</legend>
+        <table>
+          <tr>
+            <th><label for="UserID">사용자 ID</label></th>
+            <!-- 서버가 무엇을 제출받았는지 인식하기 위헤서 name 속성이 필요 -->
+            <td><input type="text" id="UserID" /></td>
+          </tr>
+          <tr>
+            <th><label for="Password">비밀번호</label></th>
+            <td><input type="password" id="Password" /></td>
+          </tr>
+          <tr>
+            <th><label for="PasswordChecking">비밀번호 확인</label></th>
+            <td><input type="password" id="PasswordChecking" /></td>
+          </tr>
+          <tr>
+            <th><label for="Username">이름</label></th>
+            <td><input type="text" id="Username" /></td>
+          </tr>
+          <tr>
+            <th><label for="Gender">성별</label></th>
+            <td>
+              <!-- name이 동일해야 같은 그룹으로 인식. 한 그룹에 하나만 선택 가능 -->
+              <input type="radio" id="man" name="Gender" value="m" />
+              <label for="man">남</label>
+              <input type="radio" id="woman" name="Gender" value="w" />
+              <label for="woman">여</label>
+            </td>
+          </tr>
+          <tr>
+            <th><label for="Hobby">취미</label></th>
+            <td>
+              <input type="checkbox" id="soccer" name="Hobby" value="soc" />
+              <label for="soccer">축구</label>
+              <input type="checkbox" id="baseball" name="Hobby" value="bas" />
+              <label for="baseball">야구</label>
+              <input type="checkbox" id="volleyball" name="Hobby" value="vol" />
+              <label for="volleyball">배구</label>
+              <input
+                type="checkbox"
+                id="basketball"
+                name="Hobby"
+                value="bask"
+              />
+              <label for="basketball">농구</label>
+            </td>
+          </tr>
+          <tr>
+            <th><label for="UserEmail">email</label></th>
+            <td><input type="text" id="UserEmail" /></td>
+          </tr>
+          <tr>
+            <th><label for="role">역할</label></th>
+            <td>
+              <select>
+                <option>ADMIN</option>
+                <option>관리자</option>
+                <option>일반회원</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+        <p></p>
+        <!-- form tag 내 내용이 서버로 제출 -->
+        <input type="submit" value="확인" />
+        <!-- form tag 내 내용이 모두 삭제 -->
+        <input type="reset" value="다시쓰기" />
+      </fieldset>
+    </form>
+  </body>
+</html>

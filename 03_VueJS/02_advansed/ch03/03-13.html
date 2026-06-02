@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #list {
+        width: 600px;
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      #list td,
+      #list th {
+        border: 1px solid black;
+        text-align: center;
+      }
+      #list > thead > tr {
+        color: yellow;
+        background-color: purple;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <table id="list">
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>이름</th>
+            <th>전화번호</th>
+          </tr>
+        </thead>
+        <tbody id="contacts">
+          <!-- 반복문을 통해 표의 행을 생성, 내용 추가 -->
+          <tr v-for="contact in contacts" :key="contact.number">
+            <!-- 배열의 각 객체를 contact로 받았으므로, contact.속성명 을 통해 접근 -->
+            <td>{{contact.number}}</td>
+            <td>{{contact.name}}</td>
+            <td>{{contact.phoneNum}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+      let vm = Vue.createApp({
+        name: 'App',
+        data() {
+          return {
+            contacts: [
+              { number: 1011, name: 'RM', phoneNum: '010-3456-8299' },
+              { number: 1012, name: '정국', phoneNum: '010-3456-8298' },
+              { number: 1013, name: '제이홉', phoneNum: '010-3456-8297' },
+              { number: 1014, name: '슈가', phoneNum: '010-3456-8296' },
+            ],
+          };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

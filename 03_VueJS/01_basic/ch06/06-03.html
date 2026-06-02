@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <button
+        :style="{backgroundColor, color}"
+        @mouseover="mouseOver"
+        @mouseout="mouseOut"
+      >
+        테스트
+      </button>
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+      let vm = Vue.createApp({
+        name: 'App',
+        data() {
+          return { backgroundColor: 'aqua', color: 'black' };
+        },
+        methods: {
+          mouseOver() {
+            this.backgroundColor = 'purple';
+            this.color = 'yellow';
+          },
+          mouseOut() {
+            this.backgroundColor = 'aqua';
+            this.color = 'black';
+          },
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

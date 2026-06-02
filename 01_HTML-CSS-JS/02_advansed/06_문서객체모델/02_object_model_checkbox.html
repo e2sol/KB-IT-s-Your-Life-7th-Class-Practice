@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      window.onload = function () {
+        let button = document.getElementById('btn');
+
+        button.onclick = function () {
+          // checkbox에서 체크된 값들만 받아오겠다.
+          // CSS 선택자를 이용해 선택된 값들을 지정하여 값을 받아옴
+          let checked = document.querySelectorAll(
+            "input[name = 'food']:checked",
+          );
+          let checkedList = [];
+
+          // checkedList라는 새로운 배열에 체크된 값들의 value를 저장
+          for (let i = 0; i < checked.length; i++) {
+            checkedList.push(checked[i].value);
+          }
+
+          // value가 저장된 checkedList를 콘솔에서 출력
+          console.log(checkedList);
+        };
+      };
+    </script>
+  </head>
+  <body>
+    <form>
+      <div>
+        좋아하는 음식은?
+        <label><input type="checkbox" name="food" value="라면" />라면</label>
+        <label><input type="checkbox" name="food" value="만두" />만두</label>
+        <label
+          ><input type="checkbox" name="food" value="불고기" />불고기</label
+        >
+        <input type="button" id="btn" value="전송" />
+      </div>
+    </form>
+  </body>
+</html>
