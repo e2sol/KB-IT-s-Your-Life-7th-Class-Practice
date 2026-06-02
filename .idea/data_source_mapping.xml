@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourcePerFileMappings">
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/63428e45-b4e2-4b0f-a87d-d8104cb9969e/console.sql" value="63428e45-b4e2-4b0f-a87d-d8104cb9969e" />
     <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/00_db_settings/00_MySQL_inteliJ_setting.sql" value="63428e45-b4e2-4b0f-a87d-d8104cb9969e" />
     <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/00_db_settings/sqlDB_moretbl_setting.sql" value="63428e45-b4e2-4b0f-a87d-d8104cb9969e" />
     <file url="file://$PROJECT_DIR$/05_DB/01_MySQL/03_SQL_BASIC/advanced/advanced_03_01.sql" value="63428e45-b4e2-4b0f-a87d-d8104cb9969e" />
