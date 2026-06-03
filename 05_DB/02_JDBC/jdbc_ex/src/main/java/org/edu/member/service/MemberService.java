@@ -6,6 +6,7 @@ import org.edu.member.dao.MemberDaoImpl;
 import org.edu.member.vo.Member;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -102,7 +103,7 @@ public class MemberService {
         // 회원 등록 성공 시 : "OOO님의 가입을 환영합니다."
         //         실패 시 : "회원 등록 실패 ㅠㅠ"
 
-        if (result != 0) System.out.printf("%s님의 가입을 환영합니다.\n", member.getMemberName());
+        if (result != 0) System.out.printf("%s님의 가입을 환영합니다.\n\n", member.getMemberName());
         else System.out.println("회원 등록 실패ㅠㅠ");
     }
 
@@ -110,23 +111,26 @@ public class MemberService {
     private void getList() throws SQLException {
         System.out.println("=== 회원 목록 조회 ===");
 
+        List<Member> memberList = dao.getList();
+
+        for (Member member : memberList) {
+            System.out.println(member);
+        }
+        System.out.println();
     }
 
     // 회원 정보 조회
     private void get() throws SQLException {
         System.out.println("=== 회원 정보 조회 ===");
 
-        System.out.println("조회할 회원 번호 : ");
+        System.out.print("조회할 회원 번호 : ");
         int memberNo = sc.nextInt();
         sc.nextLine(); // 개행문자 제거
 
         Member member = dao.get(memberNo).orElseThrow(NoSuchElementException::new);
 
-        System.out.println("회원 번호 : " + member.getMemberNo());
-        System.out.println("회원 아이디 : " + member.getMemberId());
-        System.out.println("회원 이름 : " + member.getMemberName());
-        System.out.println("회원 권한 : " + member.getMemberRole());
-        System.out.println("회원 탈퇴여부 : " + member.getDeletedYn());
+        System.out.println(member);
+        System.out.println();
     }
 
     // 회원 정보 수정
@@ -152,6 +156,7 @@ public class MemberService {
 
         if (result != 0) System.out.println("!!수정 완료!!");
         else System.out.println("회원정보 수정 실패");
+        System.out.println();
     }
 
     // 회원 정보 삭제
@@ -179,5 +184,6 @@ public class MemberService {
 
         if (result != 0) System.out.println("회원 정보 삭제 완료");
         else System.out.println("회원 정보 삭제 실패");
+        System.out.println();
     }
 }

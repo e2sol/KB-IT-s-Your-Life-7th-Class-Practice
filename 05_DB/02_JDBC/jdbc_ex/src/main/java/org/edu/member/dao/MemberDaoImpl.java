@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class MemberDaoImpl implements MemberDao {
@@ -49,6 +51,11 @@ public class MemberDaoImpl implements MemberDao {
 
             return result; // 성공한 행의 개수 반환
         }
+    }
+
+    @Override
+    public List<Member> getList() {
+        return new ArrayList<>();
     }
 
     @Override

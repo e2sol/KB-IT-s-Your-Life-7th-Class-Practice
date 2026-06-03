@@ -3,10 +3,8 @@ package org.edu.member.dao;
 import org.edu.member.common.JDBCUtil;
 import org.edu.member.vo.Member;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,9 +50,34 @@ public class HhjMemberDaoImpl implements MemberDao {
         }
     }
 
+    // ResultSet을 바탕으로 Member 객체에 정보 담아 반환
+    public Member map(ResultSet rs) throws SQLException {
+        Member member = new Member();
+        member.setMemberNo(rs.getInt("no"));
+        member.setMemberId(rs.getString("id"));
+        member.setMemberPw(rs.getString("password"));
+        member.setMemberName(rs.getString("name"));
+        member.setMemberRole(rs.getString("role"));
+        member.setDeletedYn(rs.getString("deleted_yn").charAt(0));
+
+        return member;
+    }
+
+    // 회원 목록 확인
     @Override
     public List<Member> getList() throws SQLException {
+        String sql = "select * from members";
+        List<Member> memberList = new ArrayList<>();
 
+        try (Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Member member = map(rs);
+                memberList.add(member);
+            }
+        }
+        return memberList;
     }
 
     @Override
@@ -65,15 +88,7 @@ public class HhjMemberDaoImpl implements MemberDao {
             pstmt.setInt(1, memberNo);
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    Member member = new Member();
-                    member.setMemberNo(rs.getInt("no"));
-                    member.setMemberId(rs.getString("id"));
-                    member.setMemberName(rs.getString("name"));
-                    member.setMemberRole(rs.getString("role"));
-                    member.setDeletedYn(rs.getString("deleted_yn").charAt(0));
-                    return Optional.of(member);
-                }
+                if (rs.next()) return Optional.of(map(rs));
             }
         }
         return Optional.empty();
