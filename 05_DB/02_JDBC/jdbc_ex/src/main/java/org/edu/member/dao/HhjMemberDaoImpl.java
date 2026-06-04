@@ -80,6 +80,7 @@ public class HhjMemberDaoImpl implements MemberDao {
         return memberList;
     }
 
+    // 특정 회원 정보 확인
     @Override
     public Optional<Member> get(int memberNo) throws SQLException {
         String sql = "select * from members where no = ?";
@@ -94,6 +95,7 @@ public class HhjMemberDaoImpl implements MemberDao {
         return Optional.empty();
     }
 
+    // 회원 정보 수정
     @Override
     public int update(Member member) throws SQLException {
         String sql = "update members set name = ?, role = ? where id = ?";
@@ -111,6 +113,7 @@ public class HhjMemberDaoImpl implements MemberDao {
         }
     }
 
+    // 회원 정보 삭제
     @Override
     public int delete(Member member) throws SQLException {
         String sql = "delete from members where id = ?";
