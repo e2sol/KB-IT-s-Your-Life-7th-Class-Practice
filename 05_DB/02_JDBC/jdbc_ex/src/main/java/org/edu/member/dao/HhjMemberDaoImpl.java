@@ -128,4 +128,29 @@ public class HhjMemberDaoImpl implements MemberDao {
             return result;
         }
     }
+
+    // 회원 번호가 일치하는 회원의 번호, 이름, 부서코드, 부서명 조회
+    @Override
+    public Optional<Member> getDeptName(int memberNo) throws SQLException {
+        String sql = "select no, name, d.dept_no, dept_name " +
+                "from members left join departments d " +
+                "on members.dept_no = d.dept_no where no = ?";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, memberNo);
+
+            try (ResultSet rs = pstmt.executeQuery()){
+                if (rs.next()) {
+                    Member member = new Member();
+                    member.setMemberNo(rs.getInt("no"));
+                    member.setMemberName(rs.getString("name"));
+                    member.setDeptNo(rs.getInt("dept_no"));
+                    member.setDeptName(rs.getString("dept_name"));
+
+                    return Optional.of(member);
+                }
+            }
+        }
+        return Optional.empty();
+    }
 }

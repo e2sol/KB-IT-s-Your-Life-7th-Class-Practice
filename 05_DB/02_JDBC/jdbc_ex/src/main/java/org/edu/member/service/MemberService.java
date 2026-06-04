@@ -8,16 +8,17 @@ import org.edu.member.vo.Member;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class MemberService {
     private Scanner sc = new Scanner(System.in);
 
     // 수업용
-    // private MemberDao dao = new MemberDaoImpl();
+    private MemberDao dao = new MemberDaoImpl();
 
     // 숙제용
-    private MemberDao dao = new HhjMemberDaoImpl();
+    // private MemberDao dao = new HhjMemberDaoImpl();
 
     public void displayMenu() {
 
@@ -31,6 +32,7 @@ public class MemberService {
                 System.out.println("3. 회원 정보 조회");
                 System.out.println("4. 회원 수정");
                 System.out.println("5. 회원 삭제");
+                System.out.println("6. 회원 부서명 조회");
                 System.out.println("0. 종료");
                 System.out.print("메뉴 선택 >> ");
 
@@ -53,6 +55,10 @@ public class MemberService {
                         break;
                     case 5:
                         delete();
+                        break;
+
+                    case 6 :
+                        getDeptName();
                         break;
 
                     case 0:
@@ -114,7 +120,7 @@ public class MemberService {
         List<Member> memberList = dao.getList();
 
         for (Member member : memberList) {
-            System.out.println(member);
+            System.out.println("- " + member.getMemberName());
         }
         System.out.println();
     }
@@ -184,6 +190,31 @@ public class MemberService {
 
         if (result != 0) System.out.println("회원 정보 삭제 완료");
         else System.out.println("회원 정보 삭제 실패");
+        System.out.println();
+    }
+
+    // 회원 번호가 일치하는 회원의 번호, 이름, 부서코드, 부서명 조회
+    private void getDeptName() throws SQLException{
+        System.out.println("=== 회원 부서명 조회 ===");
+
+        System.out.print("조회할 회원 번호 : ");
+        int memberNo = sc.nextInt();
+        sc.nextLine();
+
+        Optional<Member> result = dao.getDeptName(memberNo);
+
+        if (result.isEmpty()) {
+            System.out.println("회원 정보가 존재하지 않습니다.\n");
+            return;
+        }
+
+        Member member = result.get();
+
+        System.out.println("=== 조회 결과 ===");
+        System.out.println("회원 번호 : " + member.getMemberNo());
+        System.out.println("회원 이름 : " + member.getMemberName());
+        System.out.println("부서 번호 : " + member.getDeptNo());
+        System.out.println("부서 이름 : " + member.getDeptName());
         System.out.println();
     }
 }

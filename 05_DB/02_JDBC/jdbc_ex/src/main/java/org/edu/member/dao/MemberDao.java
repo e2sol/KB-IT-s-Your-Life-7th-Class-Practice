@@ -19,4 +19,6 @@ public interface MemberDao {
     int update(Member member) throws SQLException;
 
     int delete(Member member) throws SQLException;
+
+    Optional<Member> getDeptName(int memberNo) throws SQLException;
 }
