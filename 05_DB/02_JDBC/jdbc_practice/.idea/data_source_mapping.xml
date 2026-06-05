@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourcePerFileMappings">
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/6a927bcd-ce70-4ecc-8834-98b415ae0e1c/console.sql" value="6a927bcd-ce70-4ecc-8834-98b415ae0e1c" />
+    <file url="file://$PROJECT_DIR$/src/main/java/edu/employee/dao/EmployeeDaoImpl.java" value="6a927bcd-ce70-4ecc-8834-98b415ae0e1c" />
+  </component>
+</project>
