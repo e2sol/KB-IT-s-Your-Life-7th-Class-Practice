@@ -5,8 +5,13 @@ import edu.employee.dao.EmployeeDaoImpl;
 import edu.employee.vo.EmployeeVO;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class EmployeeService {
@@ -28,6 +33,11 @@ public class EmployeeService {
                 System.out.println("3. 재직 중인 직원 목록 조회");
                 System.out.println("4. 부서 급여 10% 인상");
                 System.out.println("5. 휴대폰 번호 없는 직원 조회");
+
+                // 조 별 추가 문제
+                System.out.println("6. 새로운 직원 정보 입력");
+                System.out.println("7. 직원 정보 삭제");
+
                 System.out.println("0. 종료");
                 System.out.print("메뉴 선택 >> ");
 
@@ -54,6 +64,14 @@ public class EmployeeService {
 
                     case 5:
                         getEmployeesWithoutPhone();
+                        break;
+
+                    case 6:
+                        insertEmployee();
+                        break;
+
+                    case 7:
+                        deleteEmployee();
                         break;
 
                     case 0:
@@ -195,5 +213,210 @@ public class EmployeeService {
         System.out.println();
     }
 
+    /**
+     * 새로운 직원의 정보를 저장한다.
+     *
+     * 필수 입력 정보 : 사원번호, 직원명, 주민등록번호, 직급명, 급여
+     * 추가 입력 정보 : 이메일, 전화번호, 부서명, 관리자사번, 입사일
+     *
+     * 입력 순서 : 사원 번호 > 직원명 > 주민등록번호 > 이메일 > 전화번호 > 부서명 > 직급명 > 급여 > 관리자사번 > 입사일
+     *
+     * 필수 입력 정보 미 입력 시 다음 단계로 이동불가.
+     * 부서명이 존재하지 않는 경우 유효하지 않은 부서명입니다. 반환 및 다시 입력받기
+     * 직급명이 존재하지 않는 경우 유효하지 않은 직급명입니다. 반환 및 다시 입력받기
+     * 관리자사번이 존재하지 않는 경우 유효하지 않은 관리자 사번입니다. 반환 및 다시 입력받기
+     * 부서명에 따라 부서코드 자동으로 부여
+     * 직급명에 따라 직급코드 자동으로 부여
+     * 급여에 따라 급여등급이 자동으로 부여
+     * 입사일 미 입력 시 정보 입력일로 지정, 형식 검사 후 잘못된 경우 다시 입력 받기
+     */
+    private void insertEmployee() throws SQLException {
+        System.out.println("======= 새로운 직원 정보 등록 =======");
+        System.out.println(" ** (*) 표시 사항은 필수 입력 사항입니다. **");
 
+        EmployeeVO empl = new EmployeeVO();
+
+        List<String> empIds = dao.getEmployeeIds();
+        while (true) {
+            boolean check = false;
+            System.out.print("사원 번호(*) : ");
+            String id = sc.nextLine();
+
+            if (id.trim().isEmpty()) {
+                System.out.println("필수 입력 항목입니다.");
+                continue;
+            }
+
+            for (String empId : empIds) {
+                if (empId.equals(id)) {
+                    System.out.println("중복된 사번입니다.");
+                    check = true;
+                    break;
+                }
+            }
+
+            if (!check) {
+                empl.setEmpId(id);
+                break;
+            }
+        }
+
+        do {
+            System.out.print("사원 이름(*) : ");
+            empl.setEmpName(sc.nextLine());
+
+            if (empl.getEmpName().trim().isEmpty()) System.out.println("필수 입력 문항입니다.");
+        } while (empl.getEmpName().trim().isEmpty());
+
+        do {
+            System.out.print("주민등록번호(*) : ");
+            empl.setEmpNo(sc.nextLine().trim());
+
+            if (empl.getEmpNo().trim().isEmpty()) System.out.println("필수 입력 문항입니다.");
+        } while (empl.getEmpNo().trim().isEmpty());
+
+        System.out.print("이메일 : ");
+        empl.setEmpEmail(sc.nextLine().trim());
+
+        System.out.print("핸드폰 번호(숫자만 입력) : ");
+        empl.setPhone(sc.nextLine().trim());
+
+        Map<String, String> deptTitle = dao.getDeptTitles();
+
+        while (true) {
+            System.out.print("부서명 : ");
+            String dept = sc.nextLine().trim();
+
+            if (dept.isEmpty()) break;
+
+            if (deptTitle.containsValue(dept)) {
+                empl.setDeptTitle(dept);
+                break;
+            } else System.out.println("유효하지 않은 부서명입니다.");
+        }
+
+        Map<String, String> jobName = dao.getJobNames();
+
+        while (true) {
+            System.out.print("직급명(*) : ");
+            String job = sc.nextLine();
+
+            if (jobName.containsValue(job)) {
+                empl.setJobName(job);
+                break;
+            } else if (job.trim().isEmpty()) System.out.println("필수 입력 항목입니다.");
+            else System.out.println("유효하지 않은 직급명입니다.");
+        }
+
+        do {
+            System.out.print("급여(*) : ");
+            String salary = sc.nextLine();
+
+            if (!salary.trim().isEmpty()) {
+                int temp = Integer.parseInt(salary);
+                if (temp < 1000000 || temp > 10000000) System.out.println("유효한 급여값이 아닙니다.");
+                else empl.setSalary(temp);
+            }
+            else System.out.println("필수 입력 문항입니다.");
+        } while (empl.getSalary() == 0);
+
+        List<String> managerId = dao.getManagerIds();
+
+        while (true) {
+            System.out.print("관리자사번 : ");
+            String no = sc.nextLine();
+
+            if (no.trim().isEmpty()) break;
+
+            if (managerId.contains(no)) {
+                empl.setManagerId(no);
+                break;
+            } else System.out.println("유효하지 않은 관리자 사번입니다.");
+        }
+
+        while (true) {
+            System.out.print("입사일(yyyy-MM-dd) : ");
+            String date = sc.nextLine();
+
+            if (date.trim().isEmpty()) break;
+
+            if (isValidDate(date)) {
+                empl.setHireDate(date);
+                break;
+            } else System.out.println("유효하지 않은 날짜형식입니다.");
+        }
+
+        int count = dao.insertEmployee(empl);
+
+        if (count == 1) System.out.println("\n ** 직원 정보 추가가 완료되었습니다 **\n");
+    }
+
+    // 날짜 입력 형식이 맞는지 확인
+    private boolean isValidDate(String str) {
+        try {
+            DateTimeFormatter formatter =
+                    DateTimeFormatter.ofPattern("uuuu-MM-dd")
+                            .withResolverStyle(ResolverStyle.STRICT);
+
+            LocalDate.parse(str, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    /**
+     * id를 입력받아, 해당 사원 정보 삭제
+     * 삭제 전 id값에 해당하는 사원명, 부서명, 직급명 출력 후 삭제 진행여부 확인
+     */
+    // 직원 정보 삭제
+    private void deleteEmployee() throws SQLException {
+        System.out.println("======= 직원 정보 삭제 =======");
+        String id = null;
+        while (id == null) {
+            boolean check = false;
+            System.out.print("삭제할 직원 사번 : ");
+            id = sc.nextLine();
+
+            List<String> emplIds = dao.getEmployeeIds();
+            for (String emplId : emplIds) {
+                if (id.equals(emplId)) {
+                    check = true;
+                    break;
+                }
+            }
+
+            if (check) break;
+            else {
+                System.out.println("일치하는 사번이 존재하지 않습니다.");
+                id = null;
+            }
+        }
+
+        EmployeeVO empl = dao.getEmployeeInfo(id);
+
+        if (empl == null) {
+            System.out.println("정보 조회 시 오류 발생");
+            return;
+        }
+
+        System.out.printf("%s %s %s의 정보를 삭제하시겠습니까? (Y/N) : ", empl.getDeptTitle(), empl.getJobName(), empl.getEmpName());
+        String check = sc.nextLine();
+        int count = 0;
+
+        switch (check.toUpperCase().charAt(0)) {
+            case 'Y':
+                count = dao.deleteEmployee(id);
+                break;
+            case 'N':
+                System.out.println("삭제를 취소합니다. 메인메뉴로 돌아갑니다.\n");
+                return;
+            default:
+                System.out.println("입력 값이 올바르지 않습니다.");
+                System.out.println("삭제를 취소하고 메인메뉴로 돌아갑니다.\n");
+                return;
+        }
+
+        if (count == 1) System.out.println("삭제가 완료되었습니다.\n");
+    }
 }

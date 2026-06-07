@@ -4,8 +4,11 @@ import edu.common.JDBCUtil;
 import edu.employee.vo.EmployeeVO;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EmployeeDaoImpl implements EmployeeDao{
 
@@ -89,6 +92,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
         String sql = "select DEPT_TITLE, JOB_NAME, EMP_NAME, SALARY " +
                 "from employee left join department on employee.DEPT_CODE = department.DEPT_ID " +
                 "join job on employee.JOB_CODE = job.JOB_CODE " +
+                "where employee.ENT_YN = 'N' " +
                 "order by JOB_NAME limit 10";
 
         List<EmployeeVO> list = new ArrayList<>();
@@ -110,6 +114,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
         return list;
     }
 
+    // 특정 부서 직급 10% 인상
     @Override
     public int increaseSalary(String deptCode) throws SQLException {
         String sql = "update employee set SALARY = SALARY * 1.1 where DEPT_CODE = ?";
@@ -152,4 +157,196 @@ public class EmployeeDaoImpl implements EmployeeDao{
         return list;
     }
 
+    // 부서명 리스트 받기
+    @Override
+    public Map<String, String> getDeptTitles() throws SQLException {
+        String sql = "select DEPT_ID, DEPT_TITLE from department";
+        Map<String, String> map = new HashMap<>();
+
+        try (Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)){
+            while (rs.next()) {
+                map.put(rs.getString("DEPT_ID"), rs.getString("DEPT_TITLE"));
+            }
+        }
+
+        return map;
+    }
+
+    @Override
+    public Map<String, String> getJobNames() throws SQLException {
+        String sql = "select * from job";
+        Map<String, String> map = new HashMap<>();
+
+        try (Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)){
+            while (rs.next()) {
+                map.put(rs.getString("JOB_CODE"), rs.getString("JOB_NAME"));
+            }
+        }
+        return map;
+    }
+
+    // 기존 직원 사번 확인 (관리자사번 확인용)
+    @Override
+    public List<String> getManagerIds() throws SQLException {
+        String sql = "select EMP_ID from employee where ENT_YN = 'N'";
+        List<String> list = new ArrayList<>();
+
+        try (Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)){
+            while (rs.next()) {
+                list.add(rs.getString("EMP_ID"));
+            }
+        }
+        return list;
+    }
+
+    // 기존 직원 사번 확인 (사번 중복 확인용)
+    @Override
+    public List<String> getEmployeeIds() throws SQLException {
+        String sql = "select EMP_ID from employee";
+        List<String> list = new ArrayList<>();
+
+        try (Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)){
+            while (rs.next()) {
+                list.add(rs.getString("EMP_ID"));
+            }
+        }
+        return list;
+    }
+
+    // 급여 금액 별 레벨 map 생성
+    private Map<String, int[]> getSalaryMap() throws SQLException{
+        String sql = "select * from sal_grade";
+        Map<String, int[]> salGrade = new HashMap<>();
+
+        try (Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)){
+            while (rs.next()) {
+                int[] temp = new int[2];
+
+                String level = rs.getString("SAL_LEVEL");
+                temp[0] = rs.getInt("MIN_SAL");
+                temp[1] = rs.getInt("MAX_SAL");
+
+                salGrade.put(level, temp);
+            }
+        }
+        return salGrade;
+    }
+
+    // 입력받은 정보를 기반으로 새로운 직원 정보 등록
+    @Override
+    public int insertEmployee(EmployeeVO empl) throws SQLException {
+        String sql = "insert into employee " +
+                "(EMP_ID, EMP_NAME, EMP_NO, EMAIL, PHONE, DEPT_CODE, JOB_CODE, SAL_LEVEL, SALARY, MANAGER_ID, HIRE_DATE) " +
+                "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, empl.getEmpId()); // EMP_ID
+            pstmt.setString(2, empl.getEmpName()); // EMP_NAME
+            pstmt.setString(3, empl.getEmpNo()); // EMP_NO
+
+            // EMAIL
+            String email = empl.getEmpEmail();
+            if (email.isEmpty()) pstmt.setString(4, null);
+            else pstmt.setString(4, email);
+
+            // PHONE
+            String phone = empl.getPhone();
+            if (phone.isEmpty()) pstmt.setString(5, null);
+            else pstmt.setString(5, phone);
+
+            // DEPT_CODE
+            String dept = empl.getDeptTitle();
+            if (dept == null || dept.isEmpty()) pstmt.setString(6, null);
+            else {
+                Map<String, String> deptMap = getDeptTitles();
+                for (String code : deptMap.keySet()) {
+                    if (deptMap.get(code).equals(dept)) {
+                        pstmt.setString(6, code);
+                        break;
+                    }
+                }
+            }
+
+            // JOB_CODE
+            String job = empl.getJobName();
+            Map<String, String> jobMap = getJobNames();
+            for (String jobCode : jobMap.keySet()) {
+                if (jobMap.get(jobCode).equals(job)) {
+                    pstmt.setString(7, jobCode);
+                    break;
+                }
+            }
+
+            // SAL_LEVEL
+            int salary = empl.getSalary();
+            Map<String, int[]> salMap = getSalaryMap();
+            for (String level : salMap.keySet()) {
+                int[] temp = salMap.get(level);
+                int min = temp[0];
+                int max = temp[1];
+
+                if (salary >= min && salary <= max) {
+                    pstmt.setString(8, level);
+                    break;
+                }
+            }
+
+            pstmt.setInt(9, salary); // SALARY
+            pstmt.setString(10, empl.getManagerId()); // MANAGER_ID
+
+            // HIRE_DATE
+            String hire = empl.getHireDate();
+            if (hire == null || hire.isEmpty()) pstmt.setDate(11, Date.valueOf(LocalDate.now()));
+            else pstmt.setDate(11, Date.valueOf(hire));
+
+            int count =  pstmt.executeUpdate();
+
+            if (count == 1) conn.commit();
+            return count;
+        }
+    }
+
+    @Override
+    public EmployeeVO getEmployeeInfo(String id) throws SQLException {
+        String sql = "select EMP_NAME, DEPT_TITLE, JOB_NAME " +
+                "from employee e join department d on e.DEPT_CODE = d.DEPT_ID " +
+                "join job on e.JOB_CODE = job.JOB_CODE " +
+                "where e.EMP_ID = ?";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, id);
+
+            try (ResultSet rs = pstmt.executeQuery()){
+                if (rs.next()) {
+                    EmployeeVO employee = new EmployeeVO();
+                    employee.setEmpName(rs.getString("EMP_NAME"));
+                    employee.setDeptTitle(rs.getString("DEPT_TITLE"));
+                    employee.setJobName(rs.getString("JOB_NAME"));
+
+                    return employee;
+                }
+            }
+        }
+        return null;
+    }
+
+    // 입력받은 id의 직원 정보 삭제
+    @Override
+    public int deleteEmployee(String id) throws SQLException {
+        String sql = "delete from employee where EMP_ID = ?";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, id);
+
+            int count = pstmt.executeUpdate();
+
+            if (count == 1) conn.commit();
+            return count;
+        }
+    }
 }

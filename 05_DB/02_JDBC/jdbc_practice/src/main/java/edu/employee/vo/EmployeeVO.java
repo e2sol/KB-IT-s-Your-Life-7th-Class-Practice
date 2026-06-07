@@ -9,11 +9,15 @@ import lombok.NoArgsConstructor;
 @Data
 public class EmployeeVO {
     // 사원 정보
+    private String empId;           // 사원번호
     private String empName;         // 사원명
     private String empNo;           // 주민번호
+    private String empEmail;        // 이메일주소
     private String phone;           // 휴대폰번호
     private int salary;             // 급여
     private String entYn;           // 재직여부
+    private String managerId;       // 관리자 사번
+    private String hireDate;        // 입사일
 
     // 부서 정보
     private String deptTitle;       // 부서명
