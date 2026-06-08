@@ -518,17 +518,10 @@ public class EmployeeService {
         System.out.println("======= 직원 정보 삭제 =======");
         String id = null;
         while (id == null) {
-            boolean check = false;
             System.out.print("삭제할 직원 사번 : ");
             id = sc.nextLine();
 
-            List<String> emplIds = dao.getEmployeeIds();
-            for (String emplId : emplIds) {
-                if (id.equals(emplId)) {
-                    check = true;
-                    break;
-                }
-            }
+            boolean check = isRepeatedId(id);
 
             if (check) break;
             else {
