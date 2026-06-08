@@ -30,4 +30,6 @@ public interface EmployeeDao {
     EmployeeVO getEmployeeInfo(String id) throws SQLException;
 
     int deleteEmployee(String id) throws SQLException;
+
+    int insertEmployeeSimple(EmployeeVO employee) throws SQLException;
 }

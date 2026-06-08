@@ -187,6 +187,17 @@ public class EmployeeDaoImpl implements EmployeeDao{
         return map;
     }
 
+    // 직급 명을 통해 직급 코드를 반환받는 메서드
+    private String getJobCode(String jobName) throws SQLException {
+        Map<String, String> jobMap = getJobNames();
+        for (String jobCode : jobMap.keySet()) {
+            if (jobMap.get(jobCode).equals(jobName)) {
+                return jobCode;
+            }
+        }
+        return null;
+    }
+
     // 기존 직원 사번 확인 (관리자사번 확인용)
     @Override
     public List<String> getManagerIds() throws SQLException {
@@ -237,6 +248,21 @@ public class EmployeeDaoImpl implements EmployeeDao{
         return salGrade;
     }
 
+    // 급여를 기반으로 급여 레벨 반환
+    private String getSalaryLevel(int salary) throws SQLException{
+        Map<String, int[]> salMap = getSalaryMap();
+        for (String level : salMap.keySet()) {
+            int[] temp = salMap.get(level);
+            int min = temp[0];
+            int max = temp[1];
+
+            if (salary >= min && salary <= max) {
+                return level;
+            }
+        }
+        return null;
+    }
+
     // 입력받은 정보를 기반으로 새로운 직원 정보 등록
     @Override
     public int insertEmployee(EmployeeVO empl) throws SQLException {
@@ -273,28 +299,12 @@ public class EmployeeDaoImpl implements EmployeeDao{
             }
 
             // JOB_CODE
-            String job = empl.getJobName();
-            Map<String, String> jobMap = getJobNames();
-            for (String jobCode : jobMap.keySet()) {
-                if (jobMap.get(jobCode).equals(job)) {
-                    pstmt.setString(7, jobCode);
-                    break;
-                }
-            }
+            String jobCode = getJobCode(empl.getJobName());
+            pstmt.setString(7, jobCode);
 
             // SAL_LEVEL
             int salary = empl.getSalary();
-            Map<String, int[]> salMap = getSalaryMap();
-            for (String level : salMap.keySet()) {
-                int[] temp = salMap.get(level);
-                int min = temp[0];
-                int max = temp[1];
-
-                if (salary >= min && salary <= max) {
-                    pstmt.setString(8, level);
-                    break;
-                }
-            }
+            pstmt.setString(8, getSalaryLevel(salary));
 
             pstmt.setInt(9, salary); // SALARY
             pstmt.setString(10, empl.getManagerId()); // MANAGER_ID
@@ -306,6 +316,36 @@ public class EmployeeDaoImpl implements EmployeeDao{
 
             int count =  pstmt.executeUpdate();
 
+            if (count == 1) conn.commit();
+            return count;
+        }
+    }
+
+    @Override
+    public int insertEmployeeSimple(EmployeeVO employee) throws SQLException {
+        String sql = "insert into employee values " +
+                "(?, ?, ?, null, null, null, ?, ?, ?, null, null, null, null, default)";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)){
+            // EMP_ID
+            pstmt.setString(1, employee.getEmpId());
+
+            // EMP_NAME
+            pstmt.setString(2, employee.getEmpName());
+
+            // EMP_NO
+            pstmt.setString(3, employee.getEmpNo());
+
+            // JOB_CODE
+            pstmt.setString(4, getJobCode(employee.getJobName()));
+
+            // SAL_LEVEL
+            pstmt.setString(5, getSalaryLevel(employee.getSalary()));
+
+            // SALARY
+            pstmt.setInt(6, employee.getSalary());
+
+            int count = pstmt.executeUpdate();
             if (count == 1) conn.commit();
             return count;
         }
