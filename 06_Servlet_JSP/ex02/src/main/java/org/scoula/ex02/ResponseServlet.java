@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 public class ResponseServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html;charset=UTF-8");
+        resp.setContentType("text/html;charset=UTF-8"); // 화면에 출력되는 한글이 깨지지 않도록 설정
 
         PrintWriter out = resp.getWriter();
         out.println("<html><body>");
