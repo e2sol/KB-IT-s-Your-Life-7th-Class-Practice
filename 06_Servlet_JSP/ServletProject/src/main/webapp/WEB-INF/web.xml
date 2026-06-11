@@ -18,7 +18,7 @@
     -->
     <servlet>
         <servlet-name>helloServlet</servlet-name>
-        <servlet-class>org.edu.servletproject.HelloServlet</servlet-class>
+        <servlet-class>org.edu.servlet.HelloServlet</servlet-class>
     </servlet>
 
     <!-- Servlet 매핑

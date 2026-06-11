@@ -1,4 +1,4 @@
-package org.edu.servletproject;
+package org.edu.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,8 +19,8 @@ public class ServletEx1 extends HttpServlet {
 
         // 요청시 전달된 input 태그 값(== Parameter)을 얻어오는 방법
         // req.getParameter("input태그 name 속성 값")
-        // System.out.println(req.getParameter("name"));
-        // System.out.println(req.getParameter("age"));
+        System.out.println(req.getParameter("name"));
+        System.out.println(req.getParameter("age"));
 
         String name = req.getParameter("name");
         String age = req.getParameter("age");
