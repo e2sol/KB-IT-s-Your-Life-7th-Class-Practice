@@ -3,6 +3,7 @@ package org.scoula.ex03.controller;
 import lombok.extern.log4j.Log4j2;
 import org.scoula.ex03.dto.SampleDTO;
 import org.scoula.ex03.dto.SampleDTOList;
+import org.scoula.ex03.dto.TodoDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -130,6 +131,13 @@ public class SampleController {
         log.info("list dtos: " + list);
         return "ex02Bean";
         // 복합 객체 내부의 리스트도 자동 바인딩 처리
+    }
+
+    @GetMapping("/ex03")
+    public String ex03(TodoDTO todo) {
+        log.info("todo: " + todo);
+        return "ex03";
+        // @DateTimeFormat에 지정된 패턴에 맞는 문자열만 Date로 변환
     }
 
     @GetMapping("/ex04")

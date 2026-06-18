@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: hj409
   Date: 26. 6. 17.
-  Time: 오전 9:41
+  Time: 오후 3:21
   To change this template use File | Settings | File Templates.
 --%>
 <!DOCTYPE html>
@@ -47,4 +47,3 @@
 <a href="/" class="home-link">홈으로 돌아가기</a>
 </body>
 </html>
-
