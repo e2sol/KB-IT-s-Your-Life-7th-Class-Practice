@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.scoula.mapper.ChatRoomMapper">
+
+    <insert id="insert"
+            parameterType="org.scoula.domain.ChatRoomVO"
+            useGeneratedKeys="true"
+            keyProperty="roomId">
+
+        INSERT INTO chat_room
+        (
+            room_name
+        )
+        VALUES
+            (
+                #{roomName}
+            )
+
+    </insert>
+
+    <select id="getList"
+            resultType="org.scoula.domain.ChatRoomVO">
+
+        SELECT *
+        FROM chat_room
+        ORDER BY room_id DESC
+
+    </select>
+
+    <select id="get"
+            resultType="org.scoula.domain.ChatRoomVO">
+
+        SELECT *
+        FROM chat_room
+        WHERE room_id = #{roomId}
+
+    </select>
+
+</mapper>

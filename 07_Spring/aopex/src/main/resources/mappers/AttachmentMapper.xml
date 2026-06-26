@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.scoula.mapper.AttachmentMapper">
+
+    <insert id="insert"
+            parameterType="org.scoula.domain.AttachmentVO">
+
+        INSERT INTO tbl_attachment
+        (
+            board_id,
+            file_name,
+            file_size,
+            file_data
+        )
+        VALUES
+            (
+                #{boardId},
+                #{fileName},
+                #{fileSize},
+                #{fileData}
+            )
+
+    </insert>
+
+    <select id="getByBoardId"
+            resultType="org.scoula.domain.AttachmentVO">
+
+        SELECT *
+        FROM tbl_attachment
+        WHERE board_id = #{boardId}
+
+    </select>
+
+    <select id="get"
+            resultType="org.scoula.domain.AttachmentVO">
+
+        SELECT *
+        FROM tbl_attachment
+        WHERE attach_id = #{attachId}
+
+    </select>
+
+</mapper>

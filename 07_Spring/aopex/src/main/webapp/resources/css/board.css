@@ -1,0 +1,184 @@
+body{
+    margin:0;
+    padding:0;
+    background:#f5f7fb;
+    font-family:'Segoe UI',sans-serif;
+    color:#222;
+}
+
+.container{
+    width:1200px;
+    margin:40px auto;
+}
+
+.card{
+    background:#fff;
+    border-radius:24px;
+    padding:40px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+h1{
+    margin-top:0;
+    margin-bottom:30px;
+    font-size:56px;
+    font-weight:700;
+    color:#5b4ce2;
+}
+
+a{
+    text-decoration:none;
+    color:#5b4ce2;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:#fff;
+}
+
+th{
+    text-align:left;
+    padding:16px;
+    background:#fafafa;
+    border-bottom:2px solid #eee;
+}
+
+td{
+    padding:16px;
+    border-bottom:1px solid #f0f0f0;
+}
+
+tr:hover{
+    background:#fafcff;
+}
+
+/* 버튼 */
+
+.btn,
+button{
+    background:#5b4ce2;
+    color:white;
+    border:none;
+    border-radius:14px;
+    padding:12px 24px;
+    font-size:15px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.btn:hover,
+button:hover{
+    transform:translateY(-1px);
+    opacity:.95;
+}
+
+.btn.secondary{
+    background:#e5e7eb;
+    color:#222;
+}
+
+/* 목록 상단 */
+
+.top-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:24px;
+}
+
+/* 등록/수정 폼 */
+
+form{
+    width:100%;
+}
+
+.form-group{
+    margin-bottom:24px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:10px;
+    font-size:15px;
+    font-weight:600;
+    color:#555;
+}
+
+/* 중요 */
+
+.form-group input[type=text],
+.form-group textarea{
+    width:100%;
+    box-sizing:border-box;
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    font-size:15px;
+    background:white;
+}
+
+.form-group textarea{
+    min-height:220px;
+    resize:vertical;
+}
+
+/* 파일 선택 */
+
+.form-group input[type=file]{
+    width:100%;
+    padding:10px 0;
+}
+
+/* 버튼 영역 */
+
+.button-area{
+    display:flex;
+    gap:12px;
+    margin-top:30px;
+}
+
+/* 상세 보기 */
+
+.read-box{
+    background:#fafafa;
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:18px;
+}
+
+.read-title{
+    font-size:28px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.read-writer{
+    color:#777;
+    margin-bottom:20px;
+}
+
+.read-content{
+    min-height:180px;
+    white-space:pre-wrap;
+    line-height:1.7;
+}
+
+/* 첨부파일 */
+
+.file-box{
+    margin-top:20px;
+    padding:15px;
+    background:#fafafa;
+    border-radius:12px;
+}
+
+/* 모바일 대응 */
+
+@media(max-width:1280px){
+
+    .container{
+        width:95%;
+    }
+
+}
