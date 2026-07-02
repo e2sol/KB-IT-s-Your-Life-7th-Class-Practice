@@ -71,7 +71,7 @@ public class ServletConfig implements WebMvcConfigurer {
      * 1. Controller 메서드가 "home"이라는 뷰 이름 반환
      * 2. ViewResolver가 prefix + viewName + suffix 조합
      * 3. 최종 경로: "/WEB-INF/views/" + "home" + ".jsp"
-     * 4. 결과: /WEB-INF/views/home.jsp 파일을 렌더링
+     * 4. 결과: /WEB-INF/views/index.jsp 파일을 렌더링
      *
      * 🎨 InternalResourceViewResolver 설정:
      *

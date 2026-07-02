@@ -46,6 +46,6 @@ public class HomeController {
     @GetMapping("/")
     public String home() {
         log.info("================> HomController /");
-        return "home"; // View의 이름 (ServletConfig의 ViewResolver에 의해 /WEB-INF/views/index.jsp로 변환)
+        return "index"; // View의 이름 (ServletConfig의 ViewResolver에 의해 /WEB-INF/views/index.jsp로 변환)
     }
 }
